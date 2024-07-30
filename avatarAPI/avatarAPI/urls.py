@@ -9,5 +9,6 @@ urlpatterns = [
     # path('', views.app_characters, name = 'app_characters'),
     # rota -> view -> nome referencia
     # path('app_characters/') site.com/app_characters/
-    path('', views.characters, name='characters') #site.com
+    path('', views.characters, name='characters'), #site.com
+    path('<int:page>', views.characters, name='characters') #site.com
 ]

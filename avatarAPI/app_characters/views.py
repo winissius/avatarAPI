@@ -1,15 +1,21 @@
 from django.shortcuts import render
 import requests
 from googletrans import Translator
+from django.core.paginator import Paginator
 
 # Create your views here.
 
-def characters(request): # request é padrão django / são os dados carregados
+def characters(request, page=1): # request é padrão django / são os dados carregados
     # print(api.characterTranslatered)
     characters = charactersJSON()
     characterTranslatered = translateAtributes('name', 'affiliation', characters)
 
-    return render(request, 'index.html', {'char': characterTranslatered}) # dados, página
+    paginator = Paginator(characterTranslatered, per_page=5)
+    page_object = paginator.get_page(page)
+
+    context = {'page_object': page_object}
+
+    return render(request, 'index.html', context) # dados, página
 
 
 def charactersJSON():
